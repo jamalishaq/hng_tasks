@@ -11,9 +11,6 @@ const app = express();
 const swaggerDocument = YAML.load('./openapi.yaml');
 
 // Serve the documentation on a dedicated route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));// Load the YAML file
-
-// Serve the documentation on a dedicated route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const corsOptions = {
