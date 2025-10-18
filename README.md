@@ -96,6 +96,6 @@ The complete, interactive API documentation is generated from the OpenAPI specif
 
 | Resource | URL |
 | :--- | :--- |
-| **Interactive Docs** | [hngtasks-production.up.railway.app/api-docs](https://www.google.com/search?q=https://hngtasks-production.up.railway.app/api-docs) |
+| **Interactive Docs** | [hngtasks-production.up.railway.app/api-docs](https://hngtasks-production.up.railway.app/api-docs) |
 
 You can use this page to view all available endpoints, required parameters, and response schemas.
