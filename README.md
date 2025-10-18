@@ -13,7 +13,7 @@ Follow these steps to get the specific task code running on your local machine.
 Clone the project repository using Git:
 
 ```bash
-git clone <repository_url_here>
+git clone https://github.com/jamalishaq/hng_tasks.git
 ````
 
 ### 2. Navigate and Change Branch
@@ -21,7 +21,7 @@ git clone <repository_url_here>
 Change into the project directory and switch to the branch corresponding to this task (`task_0`):
 
 ```bash
-cd <repository_name>
+cd hng_tasks
 git checkout task_0 
 ```
 
