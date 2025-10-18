@@ -89,3 +89,13 @@ To test the dynamic profile endpoint, send a GET request to:
 > `http://localhost:<PORT>/me`
 
 You will receive a JSON response that includes a dynamically fetched cat fact. Repeated requests will be subject to the configured rate limit.
+
+## 📖 API Documentation
+
+The complete, interactive API documentation is generated from the OpenAPI specification and hosted live.
+
+| Resource | URL |
+| :--- | :--- |
+| **Interactive Docs** | [hngtasks-production.up.railway.app/api-docs](https://www.google.com/search?q=https://hngtasks-production.up.railway.app/api-docs) |
+
+You can use this page to view all available endpoints, required parameters, and response schemas.

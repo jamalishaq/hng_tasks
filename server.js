@@ -2,9 +2,19 @@ const fsPromise = require("fs").promises;
 const express = require("express");
 const dotenv = require("dotenv");
 const rateLimit = require("express-rate-limit");
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 dotenv.config();
 const cors = require("cors");
 const app = express();
+// Load the YAML file
+const swaggerDocument = YAML.load('./openapi.yaml');
+
+// Serve the documentation on a dedicated route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));// Load the YAML file
+
+// Serve the documentation on a dedicated route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const corsOptions = {
   origin: "*",
