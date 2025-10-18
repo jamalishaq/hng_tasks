@@ -1,0 +1,72 @@
+
+openapi: 3.1.0
+info:
+  title: Dynamic profile endpoint
+  version: 1.0.0
+  description: |
+    Simple API that exposes a dynamic `/me` profile endpoint
+    which fetches a cat fact from an external service.
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /me:
+    get:
+      summary: Dynamic profile
+      description: Returns user profile information along with a dynamically fetched fact.
+      responses:
+        '200':
+          description: Profile and fact retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeResponse'
+        '502':
+          description: Bad gateway / upstream fetch failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    User:
+      type: object
+      description: Basic user profile
+      properties:
+        email:
+          type: string
+          format: email
+          example: toyinjamal@gmail.com
+        name:
+          type: string
+          example: Jamal Ishaq
+        stack:
+          type: string
+          example: Nodejs/Express
+
+    MeResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        user:
+          $ref: '#/components/schemas/User'
+        timestamp:
+          type: string
+          format: date-time
+          example: '2025-10-18T12:34:56.000Z'
+        fact:
+          type: string
+          example: Cats sleep 70% of their lives.
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Not Found
