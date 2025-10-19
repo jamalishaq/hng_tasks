@@ -27,7 +27,7 @@ const limiter = rateLimit({
 });
 
 const controller = new AbortController();
-const timeoutId = setTimeout(() => controller.abort(), 100000);
+const timeoutId = setTimeout(() => controller.abort(), 60 * 1000);
 
 app.use(cors(corsOptions));
 app.use(limiter);
