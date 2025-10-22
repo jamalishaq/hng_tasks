@@ -50,7 +50,7 @@ const fetchAllStringsWithNaturalLanguage = async (req, res, next) => {
       await stringsService.fetchAllStringsWithNaturalLanguage(query);
     const responseData = {
       data: analayzedStrings,
-      count: 0,
+      count: analayzedStrings.length,
       interpreted_query: {
         original: query,
         parsed_filters: {

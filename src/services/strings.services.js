@@ -1,11 +1,9 @@
 const crypto = require("node:crypto");
-const { fetchStrings } = require("../repositories/string.repository");
 const {
   BadRequestError,
   ConflictError,
   UnprocessableError,
   NotFoundError,
-  InternalServerError,
 } = require("../utils/AppError");
 const repository = require("../repositories/string.repository");
 const {
@@ -88,7 +86,7 @@ const fetchAllStringsWithFiltering = async ({
         suggestion: "Check and validate the qery paramters you provided",
       });
     }
-    const fileteredAnalyzedStrings = await fetchStrings({
+    const fileteredAnalyzedStrings = await repository.fetchStrings({
       is_palindrome,
       min_length,
       max_length,

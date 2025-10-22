@@ -3,7 +3,7 @@ const { existsSync } = require("fs");
 const { join } = require("path");
 
 const logEvents = async (logFileName, message) => {
-    const logsDirectory = join(__dirname, '..', 'logs');
+    const logsDirectory = join(__dirname, '..', '..', 'logs');
     const logItem = `Timestamp: ${new Date().toISOString()} | ${message} \n`
 
     try {
