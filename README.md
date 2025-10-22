@@ -138,6 +138,7 @@ This project uses the following key dependencies:
 | Dependency | Description |
 | :--- | :--- |
 | **`express-rate-limit`** | Middleware to protect routes against too many requests. |
+| **`sqlite3`** | Package that builds sqlite database. |
 
 #### 🔑 Environment Variables
 
