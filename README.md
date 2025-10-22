@@ -1,8 +1,5 @@
-# 🚀 HNG Task 0: Dynamic Profile API with Rate Limiting
-
-Simple API that exposes a dynamic `/me` profile endpoint which fetches a cat fact from an external service.
-
------
+# HNG Tasks
+This Repo contains all my solved HNG tasks in different branches
 
 ## ⚙️ Setup Instructions
 
@@ -22,7 +19,7 @@ Change into the project directory and switch to the branch corresponding to this
 
 ```bash
 cd hng_tasks
-git checkout task_0 
+git checkout task_[number]
 ```
 
 ### 3. Install Dependencies
@@ -32,6 +29,28 @@ Install all necessary packages using **pnpm**:
 ```bash
 pnpm install
 ```
+-----
+
+## General Dependencies
+
+These dependencies are used across all task project
+
+| Dependency | Description |
+| :--- | :--- |
+| **`yamljs`** | Module to load yaml file. |
+| **`swagger-ui-express`** | Module that provides middlewares to setup and render swagger UI. |
+
+## Tasks
+* [Task 0: Dynamic Profile API with Rate Limiting](#task-0-dynamic-profile-api-with-rate-limiting)
+* [Task 1: [Task Title Here]](#hng-task-1-task-title-here)
+* [Task 2: [Task Title Here]](#hng-task-2-task-title-here)
+
+---
+
+## task-0-dynamic-profile-api-with-rate-limiting
+
+Simple API that exposes a dynamic `/me` profile endpoint which fetches a cat fact from an external service.
+
 -----
 
 ## 📦 Dependencies
