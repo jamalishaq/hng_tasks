@@ -39,32 +39,65 @@ These dependencies are used across all task project
 | :--- | :--- |
 | **`yamljs`** | Module to load yaml file. |
 | **`swagger-ui-express`** | Module that provides middlewares to setup and render swagger UI. |
+| **`express`** | The core web framework for Node.js. |
+| **`cors`** | Middleware to enable Cross-Origin Resource Sharing. |
+| **`dotenv`** | Module to load environment variables from a `.env` file. |
+
+-----
+
+
+## ▶️ Instructions to Run Locally
+
+Once the setup is complete, start the application using the `start` script:
+
+1.  Ensure your `.env` file is configured correctly.
+2.  Start the server:
+
+<!-- end list -->
+
+```bash
+pnpm start
+```
+
+The server will start and be accessible at:
+
+> `http://localhost:<PORT>` (e.g., `http://localhost:3000`)
+
+-----
+
+## 📖 APIs Documentation
+
+The complete, interactive API documentation is generated from the OpenAPI specification and hosted live.
+
+| Resource | URL |
+| :--- | :--- |
+| **Task** | [hngtasks-production.up.railway.app/api-docs](https://hngtasks-production.up.railway.app/api-docs) |
+
+You can use this page to view all available endpoints, required parameters, and response schemas.
+
+-----
 
 ## Tasks
 * [Task 0: Dynamic Profile API with Rate Limiting](#task-0-dynamic-profile-api-with-rate-limiting)
-* [Task 1: [Task Title Here]](#hng-task-1-task-title-here)
-* [Task 2: [Task Title Here]](#hng-task-2-task-title-here)
+* [Task 1: [Task Title Here]](#task-1-string-analyzer-api)
 
 ---
 
-## task-0-dynamic-profile-api-with-rate-limiting
+### task-0-dynamic-profile-api-with-rate-limiting
 
 Simple API that exposes a dynamic `/me` profile endpoint which fetches a cat fact from an external service.
 
 -----
 
-## 📦 Dependencies
+#### 📦 Dependencies
 
 This project uses the following key dependencies:
 
 | Dependency | Description |
 | :--- | :--- |
-| **`express`** | The core web framework for Node.js. |
-| **`cors`** | Middleware to enable Cross-Origin Resource Sharing. |
-| **`dotenv`** | Module to load environment variables from a `.env` file. |
 | **`express-rate-limit`** | Middleware to protect routes against too many requests. |
 
-## 🔑 Environment Variables
+#### 🔑 Environment Variables
 
 This application requires specific environment variables for configuration. Create a file named **`.env`** in the root directory and add the following:
 
@@ -84,24 +117,7 @@ RATE_LIMIT_MAX_REQUESTS=100
 
 -----
 
-## ▶️ Instructions to Run Locally
-
-Once the setup is complete, start the application using the `start` script:
-
-1.  Ensure your `.env` file is configured correctly.
-2.  Start the server:
-
-<!-- end list -->
-
-```bash
-pnpm start
-```
-
-The server will start and be accessible at:
-
-> `http://localhost:<PORT>` (e.g., `http://localhost:3000`)
-
-### Testing the Endpoint
+#### Testing the Endpoint
 
 To test the dynamic profile endpoint, send a GET request to:
 
@@ -109,13 +125,31 @@ To test the dynamic profile endpoint, send a GET request to:
 
 You will receive a JSON response that includes a dynamically fetched cat fact. Repeated requests will be subject to the configured rate limit.
 
-## 📖 API Documentation
+### task-1-string-analyzer-api
 
-The complete, interactive API documentation is generated from the OpenAPI specification and hosted live.
+A RESTful API service that analyzes strings and stores their computed properties.
 
-| Resource | URL |
+-----
+
+#### 📦 Dependencies
+
+This project uses the following key dependencies:
+
+| Dependency | Description |
 | :--- | :--- |
-| **Interactive Docs** | [hngtasks-production.up.railway.app/api-docs](https://hngtasks-production.up.railway.app/api-docs) |
+| **`express-rate-limit`** | Middleware to protect routes against too many requests. |
 
-You can use this page to view all available endpoints, required parameters, and response schemas.
-# hng_tasks
+#### 🔑 Environment Variables
+
+This application requires specific environment variables for configuration. Create a file named **`.env`** in the root directory and add the following:
+
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| **`PORT`** | The port on which the server will run. | `3000` |
+
+### Example `.env` File
+
+```dotenv
+PORT=4000
+```
+-----
