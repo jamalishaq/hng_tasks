@@ -30,7 +30,9 @@ COPY --from=builder /app/pnpm-workspace.yaml ./
 
 COPY --from=builder /app/src ./
 
-RUN pnpm install --prod
+RUN apk add --no-cache python3 build-base \
+    && pnpm install --prod \
+    && apk del python3 build-base`
 
 ENV PORT=3000
 
