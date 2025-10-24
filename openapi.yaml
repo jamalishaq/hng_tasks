@@ -1,0 +1,280 @@
+openapi: 3.1.0
+info:
+  title: String Analyzer API
+  version: 1.0.0
+  author: Jamal
+  description: |
+    a RESTful API service that analyzes strings and stores their computed properties.
+paths:
+  /strings:
+    post:
+      summary: Create/Analyze String
+      description: |
+        Analyze a string input and store its computed value
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  description: The string to be analyzed
+              required:
+                - value
+      responses:
+        '201':
+          description: String analyzed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/analyzedString"
+        '409':
+          description: |
+            String already exists in the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+        '400':
+          description: |
+            Invalid request body or missing "value" field
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+        '422':
+          description: |
+            Invalid data type for "value" (must be string)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+      get:
+        summary: Get All Strings with Filtering
+        description: | 
+          Rerieves a list of all analyzed strings filtered with query parameters
+        parameters:
+          - in: query
+            name: is_palindrome
+            required: true
+            schema:
+              type: boolean
+          - in: query
+            name: min_length
+            required: true
+            schema:
+              type: integer
+          - in: query
+            name: max_length
+            required: true
+            schema:
+              type: integer
+          - in: query
+            name: word_count
+            required: true
+            schema:
+              type: integer
+          - in: query
+            name: contains_character
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: |
+              Returns a list of all analyzed filered strings successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:  
+                        $ref: "#/components/schemas/analyzedString"
+                    count:
+                      type: integer
+                    filters_applied:
+                      type: object
+                      properties:
+                        is_palindrome: 
+                          type: boolean
+                        min_length:
+                          type: integer
+                        max_length: 
+                          type: integer
+                        word_count: 
+                          type: integer
+                        contains_character:
+                          type: string
+          '400':
+            description: |
+              Invalid query parameter values or types
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/error"
+  /strings/filter-by-natural-language:
+    get:
+      summary: Natural Language Filtering
+      description: |
+        Retrieves a list of analyzed strings filtered by Natural language
+      parameters:
+        - in: query
+          name: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: |
+            Successfully fetched strings filtered by natural language
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:  
+                      $ref: "#/components/schemas/analyzedString"
+                  count: 
+                    type: integer
+                  interpreted_query:
+                    type: object
+                    properties:
+                      original:
+                        type: string
+                      parsed_filters:
+                        type: object
+                        properties:
+                          word_count:
+                            type: integer
+                          is_palindrome:
+                            type: boolean
+        '400':
+          description: |
+            Unable to parse natural language query
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+        '422':
+          description: |
+            Query parsed but resulted in conflicting filters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /strings/{string_value}:
+    parameters:
+      - in: path
+        name: string_value
+        required: true
+        schema: 
+          type: string
+    get:
+      summary: Get Specific String
+      description: Retrieves analyzed string
+      responses:
+        '200':
+          description: |
+            String retrieved successfully 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/analyzedString"
+        '404':
+          description: |
+            String does not exist in the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+    delete:
+      summary: Delete String
+      description: |
+        Deletes a string
+      responses:
+        '204':
+          description: |
+            Delete operation successfule with empty repsonse body
+        '404':
+          description: |
+            String does not exist in the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+components:
+  schemas:
+    analyzedString:
+      type: object
+      required:
+        - id
+        - value
+        - props
+        - created_at
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+        created_at:
+          type: string
+        props:
+          type: object
+          required:
+            - length
+            - is_palindrome
+            - unique_characters
+            - sha256_hash
+            - character_frequency_map
+          properties:
+            length:
+              type: integer
+            is_palindrome:
+              type: boolean
+            unique_characters:
+              type: integer
+            sha256_hash:
+              type: string
+            character_frequency_map:
+              type: object
+              description: Map of character to its frequency count.
+              additionalProperties:
+                type: integer
+    error:
+      type: object
+      required:
+        - status
+        - statusCode
+        - error
+        - requestId
+      properties:
+        status: 
+          type: string
+        statusCode:
+          type: integer
+        error:
+          type: object
+          required:
+            - details
+            - message
+            - code
+            - timestamp
+            - suggestion
+          properties:
+            details:
+              type: string
+            message: 
+              type: String
+            code:
+              type: string
+            timestamp:
+              type: string
+            suggestion:
+              type: string
+        requestId:
+          type: string
