@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import logger from "./middlewares/logger";
-import errorHandler from "./middlewares/errorHandler";
+import logger from "./middlewares/logger.js";
+import errorHandler from "./middlewares/errorHandler.js";
 import swaggerUI from "swagger-ui-express";
 import YAML from "yamljs";
-import router from "./routes";
+import router from "./routes/routes.js";
 
 const swaggerDocument = YAML.load("./openapi.yaml");
 const app = express();
@@ -22,7 +22,7 @@ app.use(logger);
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-app.use("/api/v1", router);
+app.use(router);
 
 app.use(errorHandler);
 

@@ -1,11 +1,10 @@
 class AppError extends Error {
-  constructor(code, details, message, suggestion, statusCode) {
+  constructor(details,error, statusCode) {
     super(message);
 
     this.name = this.constructor.name; // Good practice for custom errors
-    this.code = code;
     this.details = details;
-    this.suggestion = suggestion;
+    this.error = error;
     this.statusCode = statusCode;
 
     if (Error.captureStackTrace) {
@@ -14,53 +13,35 @@ class AppError extends Error {
   }
 }
 
-class InternalServerError extends AppError {
+export class InternalServerError extends AppError {
   constructor({
-    code = "INTERNAL_SERVER_ERROR",
-    details = "Something went wrong",
-    message = "Server down at the moment, try again later.",
-    suggestion = "Check your internet connection",
+    details,
+    error = "Internal server error",
   } = {}) {
-    super(code, details, message, suggestion, 500);
+    super(details, error, 500);
   }
 }
 
-class BadRequestError extends AppError {
+export class BadRequestError extends AppError {
   constructor({
-    code = "BAD_REQUEST", details, message, suggestion
+    details, error
   } = {}) {
-    super(code, details, message, suggestion, 400);
+    super(details, error, 400);
   }
 }
 
-class NotFoundError extends AppError {
+export class NotFoundError extends AppError {
   constructor({
-    code = "RESOURCE_NOT_FOUND", details, message, suggestion
+    details, error
   } = {}) {
-    super(code, details, message, suggestion, 404);
+    super(details, error, 404);
   }
 }
 
-class ConflictError extends AppError {
+export class ServiceUnavailableError extends AppError {
   constructor({
-    code = "STRING_ALREADY_ANALYZED", details, message, suggestion
+    details, error
   } = {}) {
-    super(code, details, message, suggestion, 409);
+    super(details, error, 409);
   }
-}
-
-class UnprocessableError extends AppError {
-  constructor({
-    code = "INVALID_DATA_TYPE", details, message, suggestion
-  } = {}) {
-    super(code, details, message, suggestion, 422);
-  }
-}
-
-export default {
-    InternalServerError,
-    BadRequestError,
-    NotFoundError,
-    ConflictError,
-    UnprocessableError
 }

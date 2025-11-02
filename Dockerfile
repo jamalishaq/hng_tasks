@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
 RUN echo "Building...."
 
@@ -12,7 +12,7 @@ RUN pnpm install
 
 COPY . .
 
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
 
 RUN echo 'Deploying...'
 
@@ -26,9 +26,13 @@ COPY --from=builder /app/pnpm-lock.yaml ./
 
 COPY --from=builder /app/openapi.yaml ./
 
+COPY --from=builder /app/pnpm-workspace.yaml ./
+
 COPY --from=builder /app/index.js ./
 
-COPY --from=builder /app/src ./ 
+COPY --from=builder /app/src ./src
+
+COPY --from=builder /app/drizzle.config.js ./
 
 RUN pnpm install --prod
 
@@ -36,4 +40,4 @@ ENV PORT=3000
 
 EXPOSE $PORT
 
-CMD ["pnpm", "start"]
+CMD ["node", "index.js"]

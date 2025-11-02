@@ -1,3 +1,5 @@
 .env
 Dockefile
 node_modules
+README.md
+docker-compose*
